@@ -30,3 +30,6 @@ strong{
 .error{
     font-size: 7px;
 }
+form.form-delete{
+    display: inline;
+}
