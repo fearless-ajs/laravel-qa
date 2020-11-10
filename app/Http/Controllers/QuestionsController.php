@@ -23,11 +23,12 @@ class QuestionsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        $questions = new Question();
+        return view('questions.create', compact('questions'));
     }
 
     /**
