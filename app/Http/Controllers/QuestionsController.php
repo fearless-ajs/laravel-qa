@@ -51,11 +51,15 @@ class QuestionsController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contrxacts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(Question $question)
     {
-        //
+        //increment the number of views
+        $question->increment('views');
+
+        return view('questions.show', compact('question'));
+
     }
 
     /**
