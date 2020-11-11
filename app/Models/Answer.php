@@ -9,6 +9,10 @@ class Answer extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+      'body', 'user_id',
+    ];
+
     public function getBodyHtmlAttribute(){
         return \Parsedown::instance()->text($this->body);
     }
