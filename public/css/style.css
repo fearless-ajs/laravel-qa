@@ -61,5 +61,5 @@ a{
     color: yellow;
 }
 .vote-accepted{
-    color: #1d643b;
+    color: rgba(0,144,7,0.75);
 }
