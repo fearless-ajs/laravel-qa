@@ -66,10 +66,16 @@ class AnswersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Answer  $answer
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Answer $answer)
+    public function destroy(Question $question, Answer $answer)
     {
-        //
+         $this->authorize('delete', $answer);
+
+         $answer->delete();
+
+
+         session()->flash('success', 'Your answer has been deleted');
+         return redirect()->back();
     }
 }
