@@ -52,4 +52,20 @@ class Question extends Model
         $this->best_answer_id = $answer->id;
         $this->save();
     }
+
+    public function favorities(){
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps(); //your can specify the foreign key in the third and fouth argument
+    }
+
+    public function isFavorited(){
+        return $this->favorities()->where('user_id', auth()->id())->count() > 0;
+    }
+
+    public function getIsFavoritedAttribute(){
+        return $this->isFavorited();
+    }
+
+    public function getFavoritesCountAttribute(){
+        return $this->favorities->count();
+    }
 }

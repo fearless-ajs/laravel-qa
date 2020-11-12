@@ -16,18 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->count(10)->create()->each(function ($u){
-            $u->questions()
-                ->saveMany(
-                    Question::factory()->count(10)->make()
-                )
-                ->each(function ($q){
-                   $q->answers()
-                       ->saveMany(
-                           Answer::factory()->count(10)->make()
-                       );
-                });
-        });
+        $this->call([
+           UsersQuestionsAnswersTableSeeder::class,
+           FavoritesTableSeeder::class,
+        ]);
 
 //        User::factory()->count(10)->create();
 //        Question::factory()->count(40)->create();

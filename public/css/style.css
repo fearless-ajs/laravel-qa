@@ -63,3 +63,6 @@ a{
 .vote-accepted{
     color: rgba(0,144,7,0.75);
 }
+.favorited{
+    color: rgba(237,220,48,0.75);
+}
