@@ -63,4 +63,13 @@ class Answer extends Model
         return $this->id == $this->question->best_answer_id;
     }
 
+    public function votes(){
+        /*
+         * use the singular form of the table name as the aurgument,
+         * laravel will detect the the votable_id and votable_type
+         * dynamically
+         */
+        return $this->morphToMany(User::class, 'votable');
+    }
+
 }
