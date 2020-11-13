@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\VotableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
     use HasFactory;
+    use VotableTrait;
 
     protected $fillable = [
       'body', 'user_id',
@@ -63,22 +65,7 @@ class Answer extends Model
         return $this->id == $this->question->best_answer_id;
     }
 
-    public function votes(){
-        /*
-         * use the singular form of the table name as the aurgument,
-         * laravel will detect the the votable_id and votable_type
-         * dynamically
-         */
-        return $this->morphToMany(User::class, 'votable');
-    }
 
-    public function upVotes(){
-        return $this->votes()->wherePivot('vote', 1);
-    }
-
-    public function downVotes(){
-        return $this->votes()->wherePivot('vote', -1);
-    }
 
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\VotableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -9,6 +10,7 @@ use Illuminate\Support\Str;
 class Question extends Model
 {
     use HasFactory;
+    use VotableTrait;
 
     protected $fillable = ['title', 'body', 'user_id'];
 
@@ -69,20 +71,4 @@ class Question extends Model
         return $this->favorities->count();
     }
 
-    public function votes(){
-        /*
-         * use the singular form of the table name as the aurgument,
-         * laravel will detect the the votable_id and votable_type
-         * dynamically
-         */
-        return $this->morphToMany(User::class, 'votable');
-    }
-
-    public function upVotes(){
-        return $this->votes()->wherePivot('vote', 1);
-    }
-
-    public function downVotes(){
-        return $this->votes()->wherePivot('vote', -1);
-    }
 }
