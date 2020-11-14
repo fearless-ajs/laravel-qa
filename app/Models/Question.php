@@ -43,7 +43,7 @@ class Question extends Model
     }
 
     public function getBodyHtmlAttribute(){
-        return \Parsedown::instance()->text($this->body);
+        return clean($this->bodyHtml());
     }
 
     public function answers(){
@@ -71,4 +71,15 @@ class Question extends Model
         return $this->favorities->count();
     }
 
+    public function getExerptAttribute(){
+        return $this->exerpt(250);
+    }
+
+    public function exerpt($length){
+        return Str::limit(strip_tags($this->bodyHtml(), $length));
+    }
+
+    private function bodyHtml(){
+        return \Parsedown::instance()->text($this->body);
+    }
 }
