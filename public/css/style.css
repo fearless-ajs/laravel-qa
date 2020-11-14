@@ -66,3 +66,8 @@ a{
 .favorited{
     color: rgba(237,220,48,0.75);
 }
+.post{
+    padding: 20px 0;
+    border-bottom: 1px solid #cccccc;
+
+}
