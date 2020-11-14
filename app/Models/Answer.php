@@ -15,6 +15,8 @@ class Answer extends Model
       'body', 'user_id',
     ];
 
+    protected $appends = ['created_date'];
+
     public function getBodyHtmlAttribute(){
         return clean(\Parsedown::instance()->text($this->body));
     }

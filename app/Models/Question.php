@@ -14,6 +14,8 @@ class Question extends Model
 
     protected $fillable = ['title', 'body', 'user_id'];
 
+    protected $appends = ['created_date'];
+
     //A relationship between the user and the questions
     public function user(){
         return $this->belongsTo(User::class);
