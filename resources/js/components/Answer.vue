@@ -27,7 +27,7 @@
             },
 
             update () {
-                axios.patch(`/questions/${this.questionId}/answers/${this.id}`, {
+                axios.patch(this.endpoint, {
                     body: this.body
                 })
                     .then(res => {
@@ -39,12 +39,27 @@
                     .catch( err => {
                         alert(err.response.data.message);
                     }); // If ajax call is fails
+            },
+
+            destroy () {
+                if(confirm('Are you sure')){
+                    axios.delete(this.endpoint)
+                    .then(res => {
+                       $(this.$el).fadeOut(500, () => {
+                           alert(res.data.message);
+                       })
+                    });
+                }
             }
         },
 
         computed: { //This is equivalent to updated function in Livewire but this allows many methods to be defined
             isInvalid () {
                 return this.body.length < 10; //this method will return true if body is less than 10
+            },
+
+            endpoint () {
+                return `/questions/${this.questionId}/answers/${this.id}`;
             }
         }
     }

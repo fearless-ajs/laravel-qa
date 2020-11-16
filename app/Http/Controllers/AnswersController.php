@@ -60,7 +60,7 @@ class AnswersController extends Controller
             'body' => 'required',
         ]));
 
-        if ($request->expectsJson()){
+        if ($request->expectsJson()){ //This is coming from a form submit
             return response()->json([
                'message' => 'Your answer has been updated',
                'body_html' => $answer->body_html
@@ -75,7 +75,7 @@ class AnswersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Answer  $answer
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Question $question, Answer $answer)
     {
@@ -83,6 +83,12 @@ class AnswersController extends Controller
 
          $answer->delete();
 
+        if (request()->expectsJson())
+        { //Notice this is not coming from a form submit
+            return response()->json([
+                'message' => 'Your answer has been deleted',
+            ]);
+        }
 
          session()->flash('success', 'Your answer has been deleted');
          return redirect()->back();
