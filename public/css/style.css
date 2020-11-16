@@ -71,3 +71,7 @@ a{
     border-bottom: 1px solid #cccccc;
 
 }
+
+[v-cloak] {
+    display: none;
+}

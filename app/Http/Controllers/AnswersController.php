@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Answer;
 use App\Models\Question;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,14 +50,22 @@ class AnswersController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Answer  $answer
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function update(Question $question, Request $request, Answer $answer)
     {
         $this->authorize('update', $answer);
+
         $answer->update($request->validate([
             'body' => 'required',
         ]));
+
+        if ($request->expectsJson()){
+            return response()->json([
+               'message' => 'Your answer has been updated',
+               'body_html' => $answer->body_html
+            ]);
+        }
 
         session()->flash('success', 'Your answer has been updated');
         return redirect()->route('questions.show', $question->slug);
