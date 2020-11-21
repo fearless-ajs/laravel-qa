@@ -35,9 +35,7 @@
         <input type="hidden" name="vote" value="-1"/>
     </form>
     @if($model instanceof \App\Models\Question)
-        @include('shared._favorite', [
-            'model' => $model,
-        ])
+       <Favorite :question="{{ $model }}"></Favorite>
     @elseif($model instanceof \App\Models\Answer)
         @include('shared._accept', [
         'model' => $model,

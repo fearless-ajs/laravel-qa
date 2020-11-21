@@ -9,7 +9,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
     <!-- Scripts -->
     <script src="{{ asset('js/iziToast.min.js') }}" type="text/javascript" ></script>
 
@@ -83,5 +83,13 @@
             @yield('content')
         </main>
     </div>
+
+    <script>
+        window.Auth = {!! json_encode([
+            'signedIn' => Auth::check(),
+            'user'     => Auth::user(),
+        ]) !!}
+    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
