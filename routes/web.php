@@ -29,7 +29,7 @@ Route::resource('questions', QuestionsController::class)->except('show');
 
 //Route::post('/answers/{question}/answers', [AnswersController::class, 'store'])->name('answers.store');
 
-Route::resource('questions.answers', AnswersController::class)->except(['index', 'create', 'show']);
+Route::resource('questions.answers', AnswersController::class)->except(['create', 'show']);
 
 Route::get('/questions/{slug}', [QuestionsController::class, 'show'])->name('questions.show');
 
