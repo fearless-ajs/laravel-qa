@@ -18,7 +18,6 @@ import Authorization from './authorization/authorize'; //imports our authorizati
 Vue.use(VueIziToast);
 Vue.use(Authorization);
 
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -32,8 +31,8 @@ Vue.use(Authorization);
 
 Vue.component('user-info', require('./components/UserInfo.vue').default);
 Vue.component('answer', require('./components/Answer.vue').default);
-Vue.component('favorite', require('./components/Favorite').default);
 Vue.component('accept', require('./components/Accept').default);
+Vue.component('vote', require('./components/Vote').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
