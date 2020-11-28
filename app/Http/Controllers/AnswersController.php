@@ -24,7 +24,7 @@ class AnswersController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store(Question $question, Request $request)
     {
@@ -32,9 +32,16 @@ class AnswersController extends Controller
 //           'body' => 'required'
 //        ]);
 
-        $question->answers()->create( $request->validate([
+       $answer =  $question->answers()->create( $request->validate([
             'body' => 'required'
         ]) + ['user_id' => Auth::user()->id]);
+
+        if ($request->expectsJson()){ //This is coming from a form submit
+            return response()->json([
+                'message' => 'Your answer has been submitted',
+                'answer' => $answer->load('user')
+            ]);
+        }
 
         session()->flash('success', 'Your answer has been submitted');
         return redirect()->back();
