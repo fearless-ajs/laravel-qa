@@ -83,7 +83,7 @@ class QuestionsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function update(AskQuestionRequest $request, Question $question)
     {
@@ -91,6 +91,15 @@ class QuestionsController extends Controller
             abort(403, "Access denied"); //if not permitted
         }
         $question->update($request->only('title', 'body'));
+
+
+        if ($request->expectsJson()){ //This is coming from a form submit
+            return response()->json([
+                'message' => 'Your question has been updated',
+                'body_html' => $question->body_html
+            ]);
+        }
+
         session()->flash('success', 'Your question has been updated');
         return redirect()->route('questions.index');
     }
@@ -99,7 +108,7 @@ class QuestionsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Question $question)
     {
@@ -107,6 +116,13 @@ class QuestionsController extends Controller
             abort(403, "Access denied"); //if not permitted
         }
         $question->delete();
+
+        if (request()->expectsJson())
+        { //Notice this is not coming from a form submit
+            return response()->json([
+                'message' => 'Your question has been deleted',
+            ]);
+        }
         session()->flash('success', 'Your question has been deleted');
         return redirect()->route('questions.index');
 
